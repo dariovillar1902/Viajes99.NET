@@ -1,0 +1,169 @@
+﻿@model MVCFrameworkNeoris.Models.Factura
+
+@{
+    ViewBag.Title = "Alta de Facturas";
+}
+<link type="text/css" href="~/Content/StyleFac.css" rel="stylesheet" />
+
+@using (Html.BeginForm("AltaFac", "Home", FormMethod.Post))
+{
+
+<div class="content">
+
+    <div class="headerOne">
+        <h1 class="DatosCli">Ingrese los datos para la factura</h1>
+        <hr />
+        @* @Html.ValidationSummary("", new { @class = "text-danger" })**@
+    </div>
+
+    <div class="cli">
+
+        <div class="contacform">
+
+
+
+            <div class="bodyForm">
+                <script src="~/Scripts/jquery-3.4.1.min.js"></script>
+                @{
+                        Html.RenderAction("DatosModeloCli");
+                        Html.RenderAction("DatosModeloPaq");
+                        var nombreYApellidoCli = new List<SelectListItem>();
+                        if (TempData["nombreYApellidoCli"] != null)
+                        {
+                            nombreYApellidoCli = TempData["nombreYApellidoCli"] as List<SelectListItem>;
+                            ViewBag.nombreYApellidoCli = nombreYApellidoCli;
+                    <p>
+                        <label> @Html.LabelFor(m => m.clientefacturado, "Seleccionar Cliente:")</label>
+                        @Html.DropDownListFor(m => m.clientefacturado, nombreYApellidoCli, "-- Cliente --", new { @class = "select" })
+                    </p>
+                    <script>
+
+                        $('#nombreYApellidoCli').change(function (e) {
+                            let valorCliente = $('#nombreYApellidoCli').val();
+                            console.log(valorCliente);
+                        });
+                    </script>
+                            }
+                            var nombrePaquete = new List<SelectListItem>
+                                ();
+                                if (TempData["nombrePaquete"] != null)
+                                {
+                                nombrePaquete = TempData["nombrePaquete"] as List<SelectListItem>
+                                    ;
+                                    ViewBag.nombrePaquete = nombrePaquete;
+                    <p>
+                        <label> @Html.LabelFor(m => m.paquetevendido, "Seleccionar Paquete:")</label>
+
+                        @Html.DropDownListFor(m => m.paquetevendido, nombrePaquete, "-- Paquete --", new { @class = "select" })
+                    </p>
+                    <script>
+
+                        $('#nombrePaquete').change(function (e) {
+                            let valorPaquete = $('#nombrePaquete').val();
+                            console.log(valorPaquete);
+                        });
+                    </script>
+                            }
+                }
+                <p>
+                    <label> @Html.LabelFor(m => m.fechafactura, "Fecha de Facturación:")</label>
+
+                    @Html.EditorFor(m => m.fechafactura, new { htmlAttributes = new { @class = "datepicker", autocomplete = "off" } })
+                    @Html.ValidationMessageFor(m => m.fechafactura)
+                </p>
+
+
+                <p class="boton">
+                    <button type="submit" class="btn btn-default"> Guardar </button>
+                    @*<input type="submit" value="Guardar" class="btn btn-default" />*@
+                    @ViewBag.Respuesta
+
+                </p>
+            </div>
+
+        </div>
+
+    </div>
+
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@*<div class="form-horizontal">
+        <h4>Ingrese los datos para la factura</h4>
+        <hr />
+        @Html.ValidationSummary("", new { @class = "text-danger" })
+        <div class="form-group">
+            <div class="col-md-10">
+                <div class="row">
+                    <div class="col-md-2">
+                        @Html.LabelFor(m => m.paquetevendido, "ID de Paquete:")
+                    </div>
+                    <div class="col-md-4">
+                        @Html.TextBoxFor(m => m.paquetevendido)
+                        @Html.ValidationMessageFor(m => m.paquetevendido)
+                    </div>
+                    <div class="col-md-2">
+                        @Html.LabelFor(m => m.clientefacturado, "ID de Cliente:", new { placeholder = "apellido cli" })
+                    </div>
+                    <div class="col-md-4">
+                        @Html.TextBoxFor(m => m.clientefacturado)
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-2">
+                        @Html.LabelFor(m => m.ventascliente, "Número de venta de este cliente:")
+                    </div>
+                    <div class="col-md-4">
+                        @Html.TextBoxFor(m => m.ventascliente)
+                        @Html.ValidationMessageFor(m => m.ventascliente)
+                    </div>
+                    <div class="col-md-2">
+                        @Html.LabelFor(m => m.fechafactura, "Fecha de Facturación:")
+                    </div>
+                    <div class="col-md-4">
+                        @Html.EditorFor(m => m.fechafactura)
+                        @Html.ValidationMessageFor(m => m.fechafactura)
+                    </div>
+                </div>
+
+                <input type="submit" value="GRABAR" class="btn btn-default" />
+                @ViewBag.Respuesta
+            </div>
+        </div>
+    </div>*@
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+<link href="~/Content/themes/base/jquery-ui.min.css" rel="stylesheet" />
+@section scripts {
+    <script src="~/Scripts/jquery-3.4.1.min.js"></script>
+    <script src="~/Scripts/jquery-ui-1.13.0.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $(".datepicker").datepicker({
+                dateFormat: "dd-mm-yy",
+                changemonth: true,
+                changeyear: true
+            });
+        });
+
+    </script>
+
+}
+

@@ -1,0 +1,31 @@
+﻿@model IEnumerable<MVCFrameworkNeoris.Models.Cliente>
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>ListarCli</title>
+</head>
+<body>
+    @{
+        List<SelectListItem> nombreClientes = new List<SelectListItem>();
+    }
+
+    @foreach (var item in Model)
+    {
+        nombreClientes.Add(new SelectListItem
+        {
+            Text = item.nombre + " " + item.apellido + " (" + item.Id.ToString() + ")",
+            Value = item.Id.ToString()
+        });
+        ViewBag.nombreYApellidoCli = nombreClientes;
+        TempData["nombreYApellidoCli"] = nombreClientes;
+    }
+
+</body>
+</html>

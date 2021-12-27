@@ -1,0 +1,82 @@
+﻿@model MVCFrameworkNeoris.Models.Factura
+
+@{
+    ViewBag.Title = "PartialView";
+}
+
+<h2> Nueva Factura </h2>
+
+@using (Html.BeginForm("AltaFac", "Home", FormMethod.Post))
+{
+
+    <div class="form-horizontal">
+        <h4>Ingrese los datos para la factura</h4>
+        <hr />
+        @Html.ValidationSummary("", new { @class = "text-danger" })
+        <div class="form-group">
+            <div class="col-md-10">
+                <div class="row">
+                    <script src="~/Scripts/jquery-3.4.1.min.js"></script>
+                    @{
+                        Html.RenderAction("DatosModeloCli");
+                        Html.RenderAction("DatosModeloPaq");
+                        var nombreYApellidoCli = new List<SelectListItem>();
+                        if (TempData["nombreYApellidoCli"] != null)
+                        {
+                            nombreYApellidoCli = TempData["nombreYApellidoCli"] as List<SelectListItem>;
+                            ViewBag.nombreYApellidoCli = nombreYApellidoCli;
+                            @Html.DropDownListFor(m => m.clientefacturado, nombreYApellidoCli)
+                            <script>
+
+                                $('#nombreYApellidoCli').change(function (e) {
+                                    let valorCliente = $('#nombreYApellidoCli').val();
+                                    console.log(valorCliente);
+                                });
+                            </script>
+                        }
+                        var nombrePaquete = new List<SelectListItem>();
+                        if (TempData["nombrePaquete"] != null)
+                        {
+                            nombrePaquete = TempData["nombrePaquete"] as List<SelectListItem>;
+                            ViewBag.nombrePaquete = nombrePaquete;
+                            @Html.DropDownListFor(m => m.paquetevendido, nombrePaquete)
+                            <script>
+
+                                $('#nombrePaquete').change(function (e) {
+                                    let valorPaquete = $('#nombrePaquete').val();
+                                    console.log(valorPaquete);
+                                });
+                            </script>
+                        }
+                    }
+
+                    <h3> @ViewBag.message </h3>
+                </div>
+                <div class="row">
+                    <div class="col-md-2">
+                        @Html.LabelFor(m => m.ventascliente, "Número de venta de este cliente:")
+                    </div>
+                    <div class="col-md-4">
+                        @Html.TextBoxFor(m => m.ventascliente)
+                        @Html.ValidationMessageFor(m => m.ventascliente)
+                    </div>
+                    <div class="col-md-2">
+                        @Html.LabelFor(m => m.fechafactura, "Fecha de Facturación:")
+                    </div>
+                    <div class="col-md-4">
+                        @Html.EditorFor(m => m.fechafactura)
+                        @Html.ValidationMessageFor(m => m.fechafactura)
+                    </div>
+                </div>
+
+                <input type="submit" value="GRABAR" class="btn btn-default" />
+                @ViewBag.Respuesta
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+

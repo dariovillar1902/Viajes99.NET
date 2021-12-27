@@ -1,0 +1,136 @@
+﻿@model IEnumerable<MVCFrameworkNeoris.Models.Paquete>
+@{
+    Layout = "../Shared/_LayoutListas.cshtml";
+}
+<!DOCTYPE html>
+
+<html>
+<head>
+    <link type="text/css" href="~/Content/StyleTable.css" rel="stylesheet" />
+    <meta name="viewport" content="width=device-width" />
+    <title>ListarPaq</title>
+</head>
+<body>
+    <p>
+        @Html.ActionLink("Alta de Paquetes", "AltaPaq", "Home", new { @class = "btn btn-danger", @id = "botonAlta" })
+    </p>
+    <table class="table">
+        <tr class="tableHead">
+            <th>
+                @Html.DisplayNameFor(model => model.nombre)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.precio)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.tipopaquete)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.cotizaciondolar)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.requierevisa)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.listalugares)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.cantidaddias)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.fechaviaje)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.vigenciapaquete)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.impuestos)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.cantidadcuotas)
+            </th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            var precioPesosString = "$" + item.precio.ToString();
+            var requiereVisaString = "";
+            var cotizacionDolarString = "";
+            var tipoPaqString = "";
+            var fechaString = item.fechaviaje.ToShortDateString();
+            var vigenciaPaqString = "";
+            var impuestosString = "";
+            if (item.vigenciapaquete == 1)
+            {
+                vigenciaPaqString = "Vencido";
+            }
+            else
+            {
+                vigenciaPaqString = "Vigente";
+            }
+            if (item.tipopaquete == 1)
+            {
+                precioPesosString = "$" + item.precio.ToString() + " (U$D " + (item.precio/item.cotizaciondolar).ToString() +")";
+                tipoPaqString = "Internacional";
+                if (item.requierevisa == 1)
+                {
+                    requiereVisaString = "No";
+                }
+                else
+                {
+                    requiereVisaString = "Sí";
+                }
+                cotizacionDolarString = "1 U$D = $" + item.cotizaciondolar.ToString();
+                impuestosString = "$" + item.impuestos.ToString() + " (U$D " + (item.impuestos / item.cotizaciondolar).ToString() + ")";
+            }
+            else
+            {
+                tipoPaqString = "Nacional";
+                requiereVisaString = "---";
+                cotizacionDolarString = "---";
+                impuestosString = "$" + item.impuestos.ToString() + " (" + (item.impuestos*100 / item.precio).ToString() + "%)";
+            }
+            <tr class="bodyTable">
+                <td>
+                    @Html.DisplayFor(modelItem => item.nombre)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => precioPesosString)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => tipoPaqString)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => cotizacionDolarString)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => requiereVisaString)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.listalugares)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.cantidaddias)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => fechaString)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => vigenciaPaqString)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => impuestosString)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.cantidadcuotas)
+                </td>
+                <td>
+                    @Html.ActionLink("Editar", "EditarPaq", "Cliente", new { id = item.Id }, new { @class = "btn btn-success" })
+                    @Html.ActionLink("Borrar", "BorrarPaq", "Cliente", new { id = item.Id }, new { @class = "btn btn-success" })
+                </td>
+            </tr>
+        }
+
+    </table>
+</body>
+</html>

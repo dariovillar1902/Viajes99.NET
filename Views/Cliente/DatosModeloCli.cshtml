@@ -1,0 +1,112 @@
+﻿@model IEnumerable<MVCFrameworkNeoris.Models.Cliente>
+
+@{ 
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <link type="text/css" href="~/Content/StyleTable.css" rel="stylesheet" />
+    <meta name="viewport" content="width=device-width" />
+    <title>ListarCli</title>
+</head>
+<body>
+    <table class="table datosModeloTablaCli">
+        <tr class="tableHead">
+            <th>
+                @Html.DisplayNameFor(model => model.nombre)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.apellido)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.direccion)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.pais)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.provincia)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.telefono)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.dni)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.cuit)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.razonsocial)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.tipocliente)
+            </th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            List<string> variablesCli = new List<string> {
+                    item.nombre, item.apellido, item.direccion, item.pais, item.provincia, item.telefono.ToString(), item.dni.ToString(), item.cuit.ToString(), item.razonsocial, item.tipocliente.ToString()
+                    };
+            ViewBag.arrayCliente = variablesCli;
+            TempData["arrayCliente"] = variablesCli;
+            var cuitEntero = (long)item.cuit;
+            var cuitEnteroString = "";
+            var razonSocialString = "";
+            var tipoCliString = "";
+            if (item.tipocliente == 1)
+            {
+                tipoCliString = "Corporativo";
+                cuitEnteroString = cuitEntero.ToString();
+                razonSocialString = item.razonsocial;
+            }
+            else
+            {
+                tipoCliString = "Particular";
+                cuitEnteroString = "---";
+                razonSocialString = "---";
+
+            }
+            <tr class="bodyTable">
+                <td>
+                    @Html.DisplayFor(modelItem => item.nombre)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.apellido)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.direccion)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.pais)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.provincia)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.telefono)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.dni)
+                </td>
+                <td>
+
+                    @Html.DisplayFor(modelItem => cuitEnteroString)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => razonSocialString)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => tipoCliString)
+                </td>
+            </tr>
+        }
+
+    </table>
+</body>
+</html>
+

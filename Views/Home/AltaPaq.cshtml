@@ -1,0 +1,373 @@
+﻿<link type="text/css" href="~/Content/StylePaq.css" rel="stylesheet"/>
+
+
+@model MVCFrameworkNeoris.Models.Paquete
+
+
+@{
+    ViewBag.Title = "Alta de Paquetes";
+}
+
+@using (Html.BeginForm("AltaPaq", "Home", FormMethod.Post))
+{
+    <div class="content">
+
+        <div class="headerOne">
+            <h1 class="DatosCli">Ingrese los datos del paquete</h1>
+            <hr />
+            @* @Html.ValidationSummary("", new { @class = "text-danger" })**@
+        </div>
+
+        <div class="cli">
+
+            <div class="contacform">
+
+
+
+                <div class="bodyForm">
+
+
+                    <p>
+                        <label> @Html.LabelFor(m => m.nombre, "Nombre:")</label>
+
+
+
+                        @Html.TextBoxFor(m => m.nombre, new { @class = "textBox" })
+                        @Html.ValidationMessageFor(m => m.nombre)
+                    </p>
+
+                    <p>
+                        @{
+                            List<SelectListItem> listaTipoPaq = new List<SelectListItem>();
+                            string[] tiposPaq = { "Nacional", "Internacional" };
+                            for (var i = 0; i < tiposPaq.Length; i++)
+                            {
+                                listaTipoPaq.Add(new SelectListItem
+                                {
+                                    Text = tiposPaq[i],
+                                    Value = i.ToString()
+                                });
+                            }
+                        }
+                        <label>@Html.LabelFor(m => m.tipopaquete, "Tipo de Paquete:")</label>
+
+                        @Html.DropDownListFor(m => m.tipopaquete, listaTipoPaq, "-- Seleccionar Paquete --", new { @class = "select" })
+                        @Html.ValidationMessageFor(m => m.tipopaquete)
+                    </p>
+
+
+                    <p>
+                        <label> @Html.LabelFor(m => m.precio, "Precio:", new { @id = "etiquetaPrecio" })</label>
+
+                        @Html.TextBoxFor(m => m.precio, new { @class = "textBox" })
+                    </p>
+
+                    <p>
+
+                        @Html.LabelFor(m => m.impuestos, "Impuestos:", new { @id = "etiquetaImpuestos", placeholder = "impuestos cli" })
+
+                        @Html.TextBoxFor(m => m.impuestos, new { @class = "textBox" })
+
+                    </p>
+
+                    <p>
+                        @Html.LabelFor(m => m.cotizaciondolar, "Cotización del dólar:", new { placeholder = "cotizaciondolar cli" })
+
+                        @Html.TextBoxFor(m => m.cotizaciondolar, new { @class = "textBox" })
+                    </p>
+
+                    <p>
+                        @{
+                            List<SelectListItem> reqVisa = new List<SelectListItem>();
+                            string[] opcionesVisa = { "Sí", "No" };
+                            for (var i = 0; i < opcionesVisa.Length; i++)
+                            {
+                                reqVisa.Add(new SelectListItem
+                                {
+                                    Text = opcionesVisa[i],
+                                    Value = i.ToString()
+                                });
+                            }
+                        }
+                        @Html.LabelFor(m => m.requierevisa, "Requiere Visa:")
+
+                        @Html.DropDownListFor(m => m.requierevisa, reqVisa, "-- Requerimiento de Visa --", new { @class = "select" })
+                        @Html.ValidationMessageFor(m => m.requierevisa)
+
+                    </p>
+
+                    <p>
+                        @Html.LabelFor(m => m.listalugares, "Lista de Lugares:", new { placeholder = "listalugares cli" })
+
+                        @Html.TextBoxFor(m => m.listalugares, new { @class = "textBox" })
+                    </p>
+
+                    <p>
+                        @Html.LabelFor(m => m.cantidaddias, "Cantidad de Días:")
+
+                        @Html.TextBoxFor(m => m.cantidaddias, new { @class = "textBox" })
+                        @Html.ValidationMessageFor(m => m.cantidaddias)
+
+                    </p>
+
+                    <p>
+                        @Html.LabelFor(m => m.fechaviaje, "Fecha de Viaje:", new { placeholder = "fechaviaje cli" })
+
+                        @Html.EditorFor(m => m.fechaviaje, new { htmlAttributes = new { @class = "datepicker", autocomplete = "off" } })
+
+
+                    </p>
+
+                    <p>
+                        @{
+                            List<SelectListItem> vigenciaPaq = new List<SelectListItem>();
+                            string[] opcionesVigencia = { "Vigente", "Vencido" };
+                            for (var i = 0; i < opcionesVigencia.Length; i++)
+                            {
+                                vigenciaPaq.Add(new SelectListItem
+                                {
+                                    Text = opcionesVigencia[i],
+                                    Value = i.ToString()
+                                });
+                            }
+                        } @Html.LabelFor(m => m.vigenciapaquete, "Vigencia de Paquete:")
+
+                        @Html.DropDownListFor(m => m.vigenciapaquete, vigenciaPaq, "-- Vigencia de Paquete --", new { @class = "select" })
+                        @Html.ValidationMessageFor(m => m.vigenciapaquete)
+                    </p>
+
+
+                    <p>
+                        @{
+                            List<SelectListItem> cuotasNac = new List<SelectListItem>();
+                            for (var i = 1; i <= 12; i++)
+                            {
+                                cuotasNac.Add(new SelectListItem
+                                {
+                                    Text = i.ToString(),
+                                    Value = i.ToString()
+                                });
+                            }
+                        }
+
+                        @{
+                            List<SelectListItem> cuotasInt = new List<SelectListItem>();
+                            for (var i = 1; i <= 6; i++)
+                            {
+                                cuotasInt.Add(new SelectListItem
+                                {
+                                    Text = i.ToString(),
+                                    Value = i.ToString()
+                                });
+                            }
+                        }
+
+                        @Html.LabelFor(m => m.cantidadcuotas, "Cantidad de Cuotas:")
+
+                        @Html.DropDownListFor(m => m.cantidadcuotas, cuotasNac, "-- Cantidad de Cuotas --", new { @class = "select", @id = "cuotasNac" })
+                        @Html.DropDownListFor(m => m.cantidadcuotas, cuotasInt, "-- Cantidad de Cuotas --", new { @class = "select", @id = "cuotasInt" })
+                        @Html.ValidationMessageFor(m => m.cantidadcuotas)
+                    </p>
+                    <p class="boton">
+                        <button type="submit" class="btn btn-default"> Guardar </button>
+                        @*<input type="submit" value="Guardar" class="btn btn-default" />*@
+                        @ViewBag.Respuesta
+
+                    </p>
+                </div>
+
+            </div>
+
+        </div>
+
+
+    </div>
+}
+
+
+
+
+
+    @*@ <h4>Ingrese los datos del paquete</h4>
+            <hr />
+            @Html.ValidationSummary("", new { @class = "text-danger" })
+            <div class="form-group">
+                <div class="col-md-10">
+                    <div class="row">
+                        <div class="col-md-2">
+                            @Html.LabelFor(m => m.nombre, "Nombre:")
+                        </div>
+                        <div class="col-md-4">
+                            @Html.TextBoxFor(m => m.nombre)
+                            @Html.ValidationMessageFor(m => m.nombre)
+                        </div>
+                        <div class="col-md-2">
+                            @Html.LabelFor(m => m.precio, "Precio:", new { @id = "etiquetaPrecio" })
+                        </div>
+                        <div class="col-md-4">
+                            @Html.TextBoxFor(m => m.precio)
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-2">
+                            @{
+                                List<SelectListItem> listaTipoPaq = new List<SelectListItem>();
+                                string[] tiposPaq = { "Nacional", "Internacional" };
+                                for (var i = 0; i < tiposPaq.Length; i++)
+                                {
+                                    listaTipoPaq.Add(new SelectListItem
+                                    {
+                                        Text = tiposPaq[i],
+                                        Value = i.ToString()
+                                    });
+                                }
+                            }
+                            @Html.LabelFor(m => m.tipopaquete, "Tipo de Paquete:")
+                        </div>
+                        <div class="col-md-4">
+                            @Html.DropDownListFor(m => m.tipopaquete, listaTipoPaq, "-- Seleccionar Paquete --")
+                            @Html.ValidationMessageFor(m => m.tipopaquete)
+                        </div>
+                        <div class="col-md-2">
+                            @Html.LabelFor(m => m.cotizaciondolar, "Cotización del dólar:", new { placeholder = "cotizaciondolar cli" })
+                        </div>
+                        <div class="col-md-4">
+                            @Html.TextBoxFor(m => m.cotizaciondolar)
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-2">
+                            @{
+                                List<SelectListItem> reqVisa = new List<SelectListItem>();
+                                string[] opcionesVisa = { "Sí", "No" };
+                                for (var i = 0; i < opcionesVisa.Length; i++)
+                                {
+                                    reqVisa.Add(new SelectListItem
+                                    {
+                                        Text = opcionesVisa[i],
+                                        Value = i.ToString()
+                                    });
+                                }
+                            }
+                            @Html.LabelFor(m => m.requierevisa, "Requiere Visa:")
+                        </div>
+                        <div class="col-md-4">
+                            @Html.DropDownListFor(m => m.requierevisa, reqVisa, "-- Requerimiento de Visa --")
+                            @Html.ValidationMessageFor(m => m.requierevisa)
+                        </div>
+                        <div class="col-md-2">
+                            @Html.LabelFor(m => m.listalugares, "Lista de Lugares:", new { placeholder = "listalugares cli" })
+                        </div>
+                        <div class="col-md-4">
+                            @Html.TextBoxFor(m => m.listalugares)
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-2">
+                            @Html.LabelFor(m => m.cantidaddias, "Cantidad de Días:")
+                        </div>
+                        <div class="col-md-4">
+                            @Html.TextBoxFor(m => m.cantidaddias)
+                            @Html.ValidationMessageFor(m => m.cantidaddias)
+                        </div>
+                        <div class="col-md-2">
+                            @Html.LabelFor(m => m.fechaviaje, "Fecha de Viaje:", new { placeholder = "fechaviaje cli" })
+                        </div>
+                        <div class="col-md-4">
+                            @Html.EditorFor(m => m.fechaviaje, new { htmlAttributes = new { @class = "datepicker" } })
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-2">
+                            @{
+                                List<SelectListItem> vigenciaPaq = new List<SelectListItem>();
+                                string[] opcionesVigencia = { "Vigente", "Vencido" };
+                                for (var i = 0; i < opcionesVigencia.Length; i++)
+                                {
+                                    vigenciaPaq.Add(new SelectListItem
+                                    {
+                                        Text = opcionesVigencia[i],
+                                        Value = i.ToString()
+                                    });
+                                }
+                            }
+                            @Html.LabelFor(m => m.vigenciapaquete, "Vigencia de Paquete:")
+                        </div>
+                        <div class="col-md-4">
+                            @Html.DropDownListFor(m => m.vigenciapaquete, vigenciaPaq, "-- Vigencia de Paquete --")
+                            @Html.ValidationMessageFor(m => m.vigenciapaquete)
+                        </div>
+                        <div class="col-md-2">
+                            @Html.LabelFor(m => m.impuestos, "Impuestos:", new { @id="etiquetaImpuestos", placeholder = "impuestos cli" })
+                        </div>
+                        <div class="col-md-4">
+                            @Html.TextBoxFor(m => m.impuestos)
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-2">
+                            @Html.LabelFor(m => m.cantidadcuotas, "Cantidad de Cuotas:")
+                        </div>
+                        <div class="col-md-4">
+                            @Html.TextBoxFor(m => m.cantidadcuotas)
+                            @Html.ValidationMessageFor(m => m.cantidadcuotas)
+                        </div>
+                    </div>
+
+                    <input type="submit" value="GRABAR" class="btn btn-default" />
+                    @ViewBag.Respuesta
+                </div>
+            </div>
+        </div>
+    *@
+
+<div class="indice">
+    <div class="back">
+        @Html.ActionLink("Volver", "Index")
+    </div>
+    <div class="next">
+        @Html.ActionLink("Ver Lista", "ListarPaq")
+    </div>
+</div>
+    <link href="~/Content/themes/base/jquery-ui.min.css" rel="stylesheet" />
+    @section scripts {
+        <script src="~/Scripts/jquery-3.4.1.min.js"></script>
+        <script src="~/Scripts/jquery-ui-1.13.0.min.js"></script>
+        <script>
+            $(document).ready(function () {
+                $(".datepicker").datepicker({
+                    dateFormat: "dd-mm-yy",
+                    changemonth: true,
+                    changeyear: true
+                });
+                $('#cuotasInt').css('display', 'none');
+            });
+
+
+            $('#tipopaquete').change(function (e) {
+                let valorPaquete = $('#tipopaquete').val();
+                if (valorPaquete == 0) {
+                    $('#cotizaciondolar').prop('disabled', true);
+                    $('#requierevisa').prop('disabled', true);
+                    $('#etiquetaPrecio').html("Precio (en $):");
+                    $('#etiquetaImpuestos').html("Impuestos (%):");
+                    $('#cuotasNac').css('display', 'inline-block');
+                    $('#cuotasInt').css('display', 'none');
+                    $('#cuotasInt').prop('disabled', true);
+                    $('#cuotasNac').prop('disabled', false);
+                } else {
+                    $('#cotizaciondolar').prop('disabled', false);
+                    $('#requierevisa').prop('disabled', false);
+                    $('#etiquetaPrecio').html("Precio (en U$D):");
+                    $('#etiquetaImpuestos').html("Impuestos (en U$D):");
+                    $('#cuotasInt').css('display', 'inline-block');
+                    $('#cuotasNac').css('display', 'none');
+                    $('#cuotasNac').prop('disabled', true);
+                    $('#cuotasInt').prop('disabled', false);
+                }
+            });
+
+        </script>
+
+    }
+

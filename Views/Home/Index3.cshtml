@@ -1,0 +1,55 @@
+﻿@{
+    ViewBag.Title = "Grupo99";
+}
+
+<div class="jumbotron">
+    <h1>Viajes99.NET</h1>
+    <p class="lead">Sistema de viajes para la empresa Grupo99</p>
+</div>
+
+<div class="row">
+    <div class="col-md-4">
+        <h2>Cargar clientes</h2>
+        <p>
+            @Html.Label("Agregar clientes nuevos:")
+            @Html.ActionLink("Crear clientes", "AltaCli", "Home", null,
+           new { @class = "btn btn-success btn-lg" })
+        </p>
+    </div>
+    <div class="col-md-4">
+        <h2>Cargar paquetes</h2>
+        <p>
+            @Html.Label("Agregar paquetes nuevos:")
+            @Html.ActionLink("Crear paquetes", "AltaPaq", "Home", null,
+           new { @class = "btn btn-success btn-lg" })
+        </p>
+    </div>
+    <div class="col-md-4">
+        <h2>Cargar facturas</h2>
+        <p>
+            @Html.Label("Agregar facturas nuevas:")
+            @Html.ActionLink("Crear facturas", "AltaFac", "Home", null,
+           new { @class = "btn btn-success btn-lg" })
+        </p>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-4">
+        <h2>Listar Clientes</h2>
+        <p>Ver, actualizar y borrar clientes: </p>
+        @Html.ActionLink("Listar clientes", "ListarCli", "Home", null,
+            new { @class = "btn btn-danger btn-lg" })
+    </div>
+    <div class="col-md-4">
+        <h2>Listar Paquetes</h2>
+        <p>Ver, actualizar y borrar paquetes: </p>
+        @Html.ActionLink("Listar paquetes", "ListarPaq", "Home", null,
+            new { @class = "btn btn-danger btn-lg" })
+    </div>
+    <div class="col-md-4">
+        <h2>Listar Facturas</h2>
+        <p>Ver, actualizar y borrar facturas: </p>
+        @Html.ActionLink("Listar facturas", "ListarFac", "Home", null,
+            new { @class = "btn btn-danger btn-lg" })
+    </div>
+</div>

@@ -1,0 +1,190 @@
+﻿<header>
+    <link type="text/css" href="~/Content/StyleCli.css" rel="stylesheet" />
+</header>
+@model MVCFrameworkNeoris.Models.Cliente
+
+@{
+    ViewBag.Title = "Alta de Clientes";
+}
+
+
+@using (Html.BeginForm("AltaCli", "Home", FormMethod.Post))
+{
+
+
+    <div class="content">
+
+        <div class="headerOne">
+            <h1 class="DatosCli">Ingrese los datos del cliente</h1>
+            <hr />
+            @* @Html.ValidationSummary("", new { @class = "text-danger" })**@
+        </div>
+
+        <div class="cli">
+
+            <div class="contacform">
+
+                <div class="tipCli">
+
+                    @{
+                        List<SelectListItem> listaTipoCli = new List<SelectListItem>();
+                        string[] tiposCli = { "Particular", "Corporativo" };
+                        for (var i = 0; i < tiposCli.Length; i++)
+                        {
+                            listaTipoCli.Add(new SelectListItem
+                            {
+                                Text = tiposCli[i],
+                                Value = i.ToString()
+                            });
+                        }
+                    }
+                    @Html.LabelFor(m => m.tipocliente, "Tipo de Cliente:", new { placeholder = "tipocliente cli" })
+
+                    @Html.DropDownListFor(m => m.tipocliente, listaTipoCli, new { @id = "dropdownCliente", placeholder = "--Seleccionar Cliente--" ,@class="select"})
+                    @Html.ValidationMessageFor(m => m.tipocliente)
+                </div>
+
+                <div class="bodyForm">
+
+
+                    <p>
+                        <label>
+                            @Html.LabelFor(m => m.nombre, "Nombre:")
+
+                        </label>
+                        @Html.TextBoxFor(m => m.nombre, new { @class = "textBox" })
+                        @Html.ValidationMessageFor(m => m.nombre)
+                    </p>
+
+                    <p>
+                        <label>
+                            @Html.LabelFor(m => m.apellido, "Apellido:", new { placeholder = "apellido cli" })
+                        </label>
+                        @Html.TextBoxFor(m => m.apellido, new { @class = "textBox" })
+                        @Html.ValidationMessageFor(m => m.apellido)
+                    </p>
+
+                    <p>
+                        @Html.LabelFor(m => m.pais, "País:", new { placeholder = "pais cli" })
+
+                        @{
+                            List<SelectListItem> listaPaises = new List<SelectListItem>();
+                            string[] paises = { "Afganistán", "Albania", "Alemania", "Andorra", "Angola", "Antigua y Barbuda", "Arabia Saudita", "Argelia", "Argentina", "Armenia", "Australia", "Austria", "Azerbaiyán", "Bahamas", "Bangladés", "Barbados", "Baréin", "Bélgica", "Belice", "Benín", "Bielorrusia", "Birmania", "Bolivia", "Bosnia y Herzegovina", "Botsuana", "Brasil", "Brunéi", "Bulgaria", "Burkina Faso", "Burundi", "Bután", "Cabo Verde", "Camboya", "Camerún", "Canadá", "Catar", "Chad", "Chile", "China", "Chipre", "Ciudad del Vaticano", "Colombia", "Comoras", "Corea del Norte", "Corea del Sur", "Costa de Marfil", "Costa Rica", "Croacia", "Cuba", "Dinamarca", "Dominica", "Ecuador", "Egipto", "El Salvador", "Emiratos Árabes Unidos", "Eritrea", "Eslovaquia", "Eslovenia", "España", "Estados Unidos", "Estonia", "Etiopía", "Filipinas", "Finlandia", "Fiyi", "Francia", "Gabón", "Gambia", "Georgia", "Ghana", "Granada", "Grecia", "Guatemala", "Guyana", "Guinea", "Guinea ecuatorial", "Guinea-Bisáu", "Haití", "Honduras", "Hungría", "India", "Indonesia", "Irak", "Irán", "Irlanda", "Islandia", "Islas Marshall", "Islas Salomón", "Israel", "Italia", "Jamaica", "Japón", "Jordania", "Kazajistán", "Kenia", "Kirguistán", "Kiribati", "Kuwait", "Laos", "Lesoto", "Letonia", "Líbano", "Liberia", "Libia", "Liechtenstein", "Lituania", "Luxemburgo", "Madagascar", "Malasia", "Malaui", "Maldivas", "Malí", "Malta", "Marruecos", "Mauricio", "Mauritania", "México", "Micronesia", "Moldavia", "Mónaco", "Mongolia", "Montenegro", "Mozambique", "Namibia", "Nauru", "Nepal", "Nicaragua", "Níger", "Nigeria", "Noruega", "Nueva Zelanda", "Omán", "Países Bajos", "Pakistán", "Palaos", "Palestina", "Panamá", "Papúa Nueva Guinea", "Paraguay", "Perú", "Polonia", "Portugal", "Reino Unido", "República Centroafricana", "República Checa", "República de Macedonia", "República del Congo", "República Democrática del Congo", "República Dominicana", "República Sudafricana", "Ruanda", "Rumanía", "Rusia", "Samoa", "San Cristóbal y Nieves", "San Marino", "San Vicente y las Granadinas", "Santa Lucía", "Santo Tomé y Príncipe", "Senegal", "Serbia", "Seychelles", "Sierra Leona", "Singapur", "Siria", "Somalia", "Sri Lanka", "Suazilandia", "Sudán", "Sudán del Sur", "Suecia", "Suiza", "Surinam", "Tailandia", "Tanzania", "Tayikistán", "Timor Oriental", "Togo", "Tonga", "Trinidad y Tobago", "Túnez", "Turkmenistán", "Turquía", "Tuvalu", "Ucrania", "Uganda", "Uruguay", "Uzbekistán", "Vanuatu", "Venezuela", "Vietnam", "Yemen", "Yibuti", "Zambia", "Zimbabue" };
+
+                            for (var i = 0; i < paises.Length; i++)
+                            {
+                                listaPaises.Add(new SelectListItem
+                                {
+                                    Text = paises[i],
+                                    Value = paises[i]
+                                });
+                            }
+                        }
+                        @Html.DropDownListFor(m => m.pais, listaPaises, "-- Seleccionar País --", new { @class = "select" })
+                        @Html.ValidationMessageFor(m => m.pais)
+
+                    </p>
+
+                    <p>
+                        <label> @Html.LabelFor(m => m.telefono, "Teléfono:", new { placeholder = "telefono cli" })</label>
+                        @Html.TextBoxFor(m => m.telefono, new { @class = "textBox" })
+                        @Html.ValidationMessageFor(m => m.telefono)
+                    </p>
+
+                    <p>
+                        @{
+                            List<SelectListItem> listaProvincias = new List<SelectListItem>();
+                            string[] provs = { "Buenos Aires", "Capital Federal", "Catamarca", "Chaco", "Chubut", "Córdoba", "Corrientes", "Entre Ríos", "Formosa", "Jujuy", "La Pampa", "La Rioja", "Mendoza", "Misiones", "Neuquén", "Río Negro", "Salta", "San Luis", "Santa Cruz", "Santa Fe", "Santiago del Estero", "Tierra del Fuego", "Tucumán" };
+                            for (var i = 0; i < provs.Length; i++)
+                            {
+                                listaProvincias.Add(new SelectListItem
+                                {
+                                    Text = provs[i],
+                                    Value = provs[i]
+                                });
+                            }
+                        }
+                        @Html.LabelFor(m => m.provincia, "Provincia:")
+                        @Html.DropDownListFor(m => m.provincia, listaProvincias, "-- Seleccionar Provincia --", new { @class = "select" })
+
+                    </p>
+
+
+                    <p>
+                        <label>
+                            @Html.LabelFor(m => m.direccion, "Dirección:")
+
+                        </label>
+                        @Html.TextBoxFor(m => m.direccion, new { @class = "textBox" })
+                        @Html.ValidationMessageFor(m => m.direccion)
+
+                    </p>
+
+
+
+
+                    <p>
+                        <label> @Html.LabelFor(m => m.dni, "DNI:")</label>
+
+                        @Html.TextBoxFor(m => m.dni, new { @class = "textBox" })
+                        @Html.ValidationMessageFor(m => m.dni)
+
+                    </p>
+
+                    <p>
+                        <label>@Html.LabelFor(m => m.cuit, "CUIT:", new { @id = "campoCUIT", placeholder = "cuit cli" })</label>
+
+                        @Html.TextBoxFor(m => m.cuit, new { @class = "textBox" })
+                        @Html.ValidationMessageFor(m => m.cuit)
+
+
+                    </p>
+
+                    <p>
+                        <label>  @Html.LabelFor(m => m.razonsocial, "Razón Social:", new { @id = "campoRS", placeholder = "cuit cli" })</label>
+
+                        @Html.TextBoxFor(m => m.razonsocial, new { @class = "textBox" })
+                        @Html.ValidationMessageFor(m => m.razonsocial)
+                    </p>
+
+                    <p class="boton">
+                        <button type="submit" class="btn btn-default"> Guardar </button>
+                        @*<input type="submit" value="Guardar" class="btn btn-default" />*@
+                        @ViewBag.Respuesta
+
+                    </p>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+}
+
+<div class="indice">
+    <div class="back">
+        @Html.ActionLink("Volver", "Index")
+    </div>
+    <div class="next">
+        @Html.ActionLink("Ver Lista", "ListarCli")
+    </div>
+</div>
+<script src="~/Scripts/jquery-3.4.1.min.js"></script>
+<script>
+    $('#cuit').prop('disabled', true);
+    $('#razonsocial').prop('disabled', true);
+
+    $('#dropdownCliente').change(function (e) {
+        let valorCliente = $('#dropdownCliente').val();
+        if (valorCliente == 0) {
+            $('#cuit').prop('disabled', true);
+            $('#razonsocial').prop('disabled', true);
+        } else {
+            $('#cuit').prop('disabled', false);
+            $('#razonsocial').prop('disabled', false);
+        }
+    });
+
+</script>
+
+

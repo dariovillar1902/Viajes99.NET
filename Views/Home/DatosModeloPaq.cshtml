@@ -1,0 +1,41 @@
+﻿@model IEnumerable<MVCFrameworkNeoris.Models.Paquete>
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>ListarPaq</title>
+</head>
+<body>
+    @{
+        List<SelectListItem> listaPaquetes = new List<SelectListItem>();
+        List<SelectListItem> listaPrecios = new List<SelectListItem>();
+    }
+
+    @foreach (var item in Model)
+    {
+        if (item.vigenciapaquete == 0)
+        {
+            listaPaquetes.Add(new SelectListItem
+            {
+                Text = item.nombre + " (" + item.Id.ToString() + ")",
+                Value = item.Id.ToString()
+            });
+            ViewBag.nombrePaquete = listaPaquetes;
+            TempData["nombrePaquete"] = listaPaquetes;
+        }
+        listaPrecios.Add(new SelectListItem
+        {
+            Text = item.precio.ToString(),
+            Value = item.Id.ToString()
+        });
+        ViewBag.precioPaquete = listaPrecios;
+        TempData["precioPaquete"] = listaPrecios;
+    }
+</body>
+</html>

@@ -1,0 +1,96 @@
+﻿<link type="text/css" href="~/Content/StyleIndex.css" rel="stylesheet" />
+
+
+@{
+    ViewBag.Title = "Viajes99.Net";//Grupos 99
+}
+
+<div class="jumbotron" id="2">
+    <div class="headerT">
+
+        <h1 class="title">
+            Viajes99.NET
+        </h1>
+        <p class="lead">Viaje con nosotros, Viaje hasta el 99</p>
+    </div>
+    @*Viajes99.Net se encuentra en un excelente momento con muy buenas noticias para los viajeros que eligen su servicio . Nuestra  empresa es la  líder en el mercado argentino y  considerada una de los mejores servicios  más seguras del mundo.*@
+</div>
+@*<section class="sec">
+        <article class="arti" >
+            <h1>¿Quienes somos?</h1>
+            <p>Viajes99.Net es una empresa que se encuentra en un excelente momento con muy buenas noticias para los viajeros que eligen su servicio . Nuestra  empresa es la  líder en el mercado argentino y  considerada una de los mejores servicios  más seguras del mundo.</p>
+        </article>
+    </section>
+    aca había por defecto el siguiente dos div con la clase row , los puse en un mismo div porque me quedaba feo el estilo*@
+<div class="boxGrid">
+    @* class="row rowOne"*@
+    <div class="col-md-4 cli clasesCol">
+        <h2>Cargar Clientes</h2>
+        <p>
+            @Html.Label("Agregar clientes nuevos:")
+
+        </p>
+        <button class="bton btonGreen">
+            @Html.ActionLink("Crear clientes", "AltaCli", "Home", null,
+      new { @class = "btnGrab" })
+        </button>
+    </div>
+    <div class="col-md-4 listCli clasesCol ">
+        <h2>Listar Clientes</h2>
+        <p> @Html.Label("Ver, actualizar y borrar clientes:") </p>
+        <button class="bton">
+            @Html.ActionLink("Listar clientes", "ListarCli", "Home", null,
+            new { @class = "btnList" })  @*@class = "btn btn-danger btn-lg"*@
+        </button>
+    </div>
+    <div class="col-md-4 paq clasesCol ">
+        <h2>Cargar Paquetes</h2>
+        <p>
+            @Html.Label("Agregar paquetes nuevos:")
+
+        </p>
+        <button class="bton btonGreen">
+            @Html.ActionLink("Crear paquetes", "AltaPaq", "Home", null,
+          new { @class = "btnGrab" })
+        </button>
+    </div>
+    <div class="col-md-4 listPaq clasesCol ">
+        <h2>Listar Paquetes</h2>
+        <p>@Html.Label("Ver, actualizar y borrar paquetes:") </p>
+        <button class="bton">
+            @Html.ActionLink("Listar paquetes", "ListarPaq", "Home", null,
+            new { @class = "btnList" })  @*@class = "btn btn-danger btn-lg"*@
+        </button>
+    </div>
+    <div class="col-md-4 fact clasesCol ">
+        <h2>Cargar Facturas</h2>
+        <p>
+            @Html.Label("Agregar facturas nuevas:")
+
+        </p>
+
+        <button class="bton btonGreen">
+            @Html.ActionLink("Crear facturas", "AltaFac", "Home", null,
+           new { @class = "btnGrab" }) @*new { @class = "btn btn-success btn-lg" *@
+    </button>
+</div>
+<div class="col-md-4 lisFact clasesCol ">
+    <h2>Listar Facturas</h2>
+    <p>@Html.Label("Ver, actualizar y borrar facturas:") </p>
+    <button class="bton">
+        @Html.ActionLink("Listar facturas", "ListarFac", "Home", null,
+        new { @class = "btnList" })  @*@class = "btn btn-danger btn-lg"*@
+    </button>
+</div>
+</div>
+
+
+<div class="contact" id="3">
+
+    <address>
+        <p>Directiva: Vuelos99.Net, UTN FRBA </p>
+        <p>Ubicación: Buenos Aires, Argentina </p>
+        <p>Teléfono: 153 003 4639</p>
+        <p>Mail: <a href="mailto:Support@example.com">vuelos99net@gmail.com</a></p>
+    </address>
+</div>

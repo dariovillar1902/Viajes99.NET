@@ -1,0 +1,99 @@
+﻿@model IEnumerable<MVCFrameworkNeoris.Models.Factura>
+@{
+    Layout = "../Shared/_LayoutListas.cshtml";
+}
+<!DOCTYPE html>
+
+<html>
+<head>
+    <link type="text/css" href="~/Content/StyleTable.css" rel="stylesheet" />
+    <meta name="viewport" content="width=device-width" />
+    <title>ListarFac</title>
+</head>
+<body>
+    <p>
+        @Html.ActionLink("Alta de Facturas", "AltaFac", "Home", new { @class = "btn btn-danger", @id = "botonAlta" })
+    </p>
+
+    <table class="table">
+        <tr class="tableHead">
+            <th>
+                Paquete vendido:
+            </th>
+            <th>
+                Cliente facturado:
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.fechafactura)
+            </th>
+        </tr>
+        @{
+            Html.RenderAction("DatosModeloCli");
+            Html.RenderAction("DatosModeloPaq");
+            var nombreYApellidoCli = new List<SelectListItem>();
+            if (TempData["nombreYApellidoCli"] != null)
+            {
+                nombreYApellidoCli = TempData["nombreYApellidoCli"] as List<SelectListItem>;
+                ViewBag.nombreYApellidoCli = nombreYApellidoCli;
+            }
+            var nombrePaquete = new List<SelectListItem>();
+            if (TempData["nombrePaquete"] != null)
+            {
+                nombrePaquete = TempData["nombrePaquete"] as List<SelectListItem>;
+                ViewBag.nombrePaquete = nombrePaquete;
+            }
+        }
+        @foreach (var item in Model)
+        {
+            var fechaString = item.fechafactura.ToShortDateString();
+            var textoPaquete = "";
+
+            for (int i = 0; i < ViewBag.nombrePaquete.Count; i++)
+            {
+                if (item.paquetevendido.ToString() == ViewBag.nombrePaquete[i].Value)
+                {
+                    textoPaquete = ViewBag.nombrePaquete[i].Text.ToString();
+                }
+            }
+
+            if (textoPaquete == "")
+            {
+                textoPaquete = "Paquete no encontrado.";
+            }
+
+            var textoCliente = "";
+
+            for (int i = 0; i < ViewBag.nombreYApellidoCli.Count; i++)
+            {
+                if (item.clientefacturado.ToString() == ViewBag.nombreYApellidoCli[i].Value)
+                {
+                    textoCliente = ViewBag.nombreYApellidoCli[i].Text.ToString();
+                }
+            }
+
+            if (textoCliente == "")
+            {
+                textoCliente = "Cliente no encontrado.";
+            }
+
+            <tr class="bodyTable">
+                <td>
+                    @Html.DisplayFor(modelItem => textoPaquete)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => textoCliente)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => fechaString)
+                </td>
+                <td class="rowBotones">
+                    @Html.ActionLink("Editar", "EditarFac", "Cliente", new { id = item.Id }, new { @class = "btn btn-success" }) 
+                    @Html.ActionLink("Ver Viajes", "ViajesCli", "Cliente", new { id = item.Id }, new { @class = "btn btn-success" }) 
+                    @Html.ActionLink("Borrar", "BorrarFac", "Cliente", new { id = item.Id }, new { @class = "btn btn-success" })
+                </td>
+            </tr>
+        }
+
+    </table>
+</body>
+</html>

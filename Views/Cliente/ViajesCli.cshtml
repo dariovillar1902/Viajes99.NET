@@ -1,0 +1,127 @@
+﻿@model IEnumerable<MVCFrameworkNeoris.Models.Factura>
+@{
+    Layout = "../Shared/_LayoutListas.cshtml";
+}
+<!DOCTYPE html>
+
+<html>
+<head>
+    <link type="text/css" href="~/Content/StyleTable.css" rel="stylesheet" />
+    <meta name="viewport" content="width=device-width" />
+    <title>ListarFac</title>
+</head>
+<body>
+    <table class="table">
+        <tr class="tableHead">
+            <th>
+                @Html.DisplayNameFor(model => model.paquetevendido)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.clientefacturado)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ventascliente)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.fechafactura)
+            </th>
+        </tr>
+        @{
+            Html.RenderAction("DatosModeloCli", "Home");
+            Html.RenderAction("DatosModeloPaq", "Home");
+            var nombreYApellidoCli = new List<SelectListItem>();
+            if (TempData["nombreYApellidoCli"] != null)
+            {
+                nombreYApellidoCli = TempData["nombreYApellidoCli"] as List<SelectListItem>;
+                ViewBag.nombreYApellidoCli = nombreYApellidoCli;
+            }
+            var nombrePaquete = new List<SelectListItem>();
+            if (TempData["nombrePaquete"] != null)
+            {
+                nombrePaquete = TempData["nombrePaquete"] as List<SelectListItem>;
+                ViewBag.nombrePaquete = nombrePaquete;
+            }
+            var precioPaquete = new List<SelectListItem>();
+            if (TempData["precioPaquete"] != null)
+            {
+                precioPaquete = TempData["precioPaquete"] as List<SelectListItem>;
+                ViewBag.precioPaquete = precioPaquete;
+            }
+        }
+        @{
+            var cantidadViajes = 0;
+            var precioViajes = 0;
+        }
+        @foreach (var item in Model)
+        {
+            var textoPaquete = "";
+
+            for (int i = 0; i < ViewBag.nombrePaquete.Count; i++)
+            {
+                if (item.paquetevendido.ToString() == ViewBag.nombrePaquete[i].Value)
+                {
+                    textoPaquete = ViewBag.nombrePaquete[i].Text.ToString();
+                }
+            }
+
+            if (textoPaquete == "")
+            {
+                textoPaquete = "Paquete no encontrado.";
+            }
+
+            var textoPrecio = "";
+            var textoPesos = "";
+
+            for (int i = 0; i < ViewBag.precioPaquete.Count; i++)
+            {
+                if (item.paquetevendido.ToString() == ViewBag.precioPaquete[i].Value)
+                {
+                    textoPrecio = ViewBag.precioPaquete[i].Text.ToString();
+                    textoPesos = "$" + textoPrecio;
+                }
+            }
+
+            if (textoPrecio == "")
+            {
+                textoPrecio = "0";
+            }
+
+            var textoCliente = "";
+
+            for (int i = 0; i < ViewBag.nombreYApellidoCli.Count; i++)
+            {
+                if (item.clientefacturado.ToString() == ViewBag.nombreYApellidoCli[i].Value)
+                {
+                    textoCliente = ViewBag.nombreYApellidoCli[i].Text.ToString();
+                }
+            }
+
+            if (textoCliente == "")
+            {
+                textoCliente = "Cliente no encontrado.";
+            }
+
+            cantidadViajes += 1;
+            precioViajes += Int32.Parse(textoPrecio);
+
+            <tr class="bodyTable">
+                <td>
+                    @Html.DisplayFor(modelItem => textoPaquete)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => textoCliente)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => textoPesos)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.fechafactura)
+                </td>
+            </tr>
+
+        }
+    </table>
+    <p> El cliente tiene @cantidadViajes viaje(s) </p>
+    <p> por un total de $@precioViajes </p>
+</body>
+</html>

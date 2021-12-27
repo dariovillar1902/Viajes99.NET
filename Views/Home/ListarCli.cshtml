@@ -1,0 +1,169 @@
+﻿@model IEnumerable<MVCFrameworkNeoris.Models.Cliente>
+
+@{
+    Layout = "../Shared/_LayoutListas.cshtml";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <link type="text/css" href="~/Content/StyleTable.css" rel="stylesheet" />
+    <meta name="viewport" content="width=device-width" />
+    <title>ListarCli</title>
+</head>
+<body>
+    <p>
+        @Html.ActionLink("Alta de Clientes", "AltaCli", "Home", new { @class = "btn btn-danger", @id="botonAlta" })
+    </p>
+    @{
+
+
+
+        if (ViewBag.Prueba == "")
+        {
+            <p>
+                Se están mostrando todos los clientes.
+            </p>
+        }
+        else
+        {
+            var splitStr = ViewBag.Prueba;
+            char[] delimiterChars = { '&', '=' };
+
+            string[] words = splitStr.Split(delimiterChars);
+            var condicionString = "";
+            if (words[1] == "max")
+            {
+                condicionString = "hasta";
+            }
+            else if (words[1] == "min")
+            {
+                condicionString = "al menos";
+            }
+            else
+            {
+                condicionString = "exactamente";
+            }
+            <p>
+                Se están mostrando clientes con @condicionString @words[3] ventas.
+            </p>
+        }
+    }
+    <div id="filtro">
+        @using (Html.BeginForm("ListarCliCond", "Cliente", FormMethod.Get))
+        {
+            <span>
+                Filtrar clientes con
+            </span>
+            var prueba2 = "cond";
+            var numero = "val";
+            List<SelectListItem> prueba = new List<SelectListItem>();
+            prueba.Add(new SelectListItem() { Text = "hasta", Value = "max" });
+            prueba.Add(new SelectListItem() { Text = "al menos", Value = "min" });
+            prueba.Add(new SelectListItem() { Text = "exactamente", Value = "equals" });
+
+            SelectList seleccion = new SelectList(prueba, "Value", "Text");
+
+            @Html.DropDownList(prueba2, seleccion, new { @class = "dropdown" })
+            @Html.TextBox(numero, null, new { @class = "inputNumero" })
+            <span> venta(s) </span>
+            <button type="submit" class="btn btn-danger botonFiltro"> Filtrar </button>
+        }
+    </div>
+    <table class="table">
+        <tr class="tableHead">
+            <th>
+                @Html.DisplayNameFor(model => model.nombre)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.apellido)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.direccion)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.pais)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.provincia)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.telefono)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.dni)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.cuit)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.razonsocial)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.tipocliente)
+            </th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            var cuitEntero = (long)item.cuit;
+            var cuitEnteroString = "";
+            var razonSocialString = "";
+            var tipoCliString = "";
+            if (item.tipocliente == 1)
+            {
+                tipoCliString = "Corporativo";
+                cuitEnteroString = cuitEntero.ToString();
+                razonSocialString = item.razonsocial;
+            }
+            else
+            {
+                tipoCliString = "Particular";
+                cuitEnteroString = "---";
+                razonSocialString = "---";
+
+            }
+            <tr class="bodyTable">
+                <td>
+                    @Html.DisplayFor(modelItem => item.nombre)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.apellido)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.direccion)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.pais)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.provincia)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.telefono)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.dni)
+                </td>
+                <td>
+
+                    @Html.DisplayFor(modelItem => cuitEnteroString)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => razonSocialString)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => tipoCliString)
+                </td>
+                <td>
+                    @Html.ActionLink("Editar", "EditarCli", "Cliente", new { id = item.Id }, new { @class = "btn btn-success" })
+                    @Html.ActionLink("Ver Viajes", "ViajesCli", "Cliente", new { id = item.Id }, new { @class = "btn btn-success" })
+                    @Html.ActionLink("Borrar", "BorrarCli", "Cliente", new { id = item.Id }, new { @class = "btn btn-success" })
+                </td>
+            </tr>
+        }
+
+    </table>
+</body>
+</html>
