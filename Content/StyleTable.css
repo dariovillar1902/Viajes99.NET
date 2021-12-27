@@ -1,0 +1,72 @@
+﻿body {
+    background:black;
+    padding:75px 0 !important;
+}
+.table {
+    box-shadow: 0 0 20px 0 rgb(255 255 255 / 30%);
+  
+
+}
+
+p, span {
+    color: white !important;
+    font-size: 20px;
+    text-align: center;
+}
+
+#filtro {
+    margin-bottom: 50px;
+    text-align: center;
+}
+
+.dropdown, .inputNumero {
+    margin: 0px 10px;
+    color: white;
+    background-color: #d9534f;
+}
+
+.dropdown {
+    padding: 5px 0;
+    border-radius: 10px;
+}
+
+.inputNumero {
+    padding: 5px;
+    width: 50px;
+}
+
+.botonFiltro {
+    margin: 0 20px;
+}
+
+.rowBotones {
+    max-width: 200px;
+}
+
+#botonAlta {
+    font-size: 15px;
+}
+
+
+.tableHead {
+   
+   font-size:20px;
+    color: darkred;
+    width: 100%;
+}
+.bodyTable {
+    background: #565655;
+    color: white;
+    font-size: 16px;
+}
+.item{
+    color:black;
+}
+
+.text-white {
+    color: white;
+}
+
+.textoLabels {
+    text-align: left !important;
+}

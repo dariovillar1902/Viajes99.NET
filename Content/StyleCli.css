@@ -1,0 +1,191 @@
+﻿/*body {
+    background: #C1BBBB;
+}
+.formCli{
+    display:grid;
+     align-content:center;
+    justify-content:center;
+}
+.formGr {
+   
+    
+  width:900px;
+    
+    
+}
+.rowUp{
+    display:grid;
+}
+.row {
+    display: grid;
+    grid-template-columns: 1fr;
+    background: black;
+    color: white;
+    padding: 1em;
+    gap:20px;
+    
+}
+#dropdownCliente{
+    color:black;
+    width: 100%;
+   
+    text-align:center;
+    border: 0px;
+}
+.label {
+    
+}
+.colText {
+    position: center;
+    border-bottom: 1px darkred solid;
+    width: 90%;
+    justify-content: center;
+    margin: 0 auto;
+   
+}
+.col-md-2 {
+   width:100%;
+ text-align:center;
+   padding:10px 0px 0px 0px;
+   font-size:18px;
+}
+.labelOne{
+    background:none;
+    border-style:none;
+    width:100%;
+    outline:none;
+    
+   
+}
+.bton{
+    
+
+}
+.btn{
+    display:grid;
+   grid-column:1/2;
+   width:100%;
+    
+}
+*/
+
+* {
+    box-sizing: border-box;
+}
+
+
+body {
+    background: #181818;
+    color: white;
+    padding: 01.5em;
+}
+
+.content {
+    max-width: 1120px;
+    border: 1px solid black;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 1.5em;
+}
+
+.cli {
+    box-shadow: 0 0 20px 0 rgba(255,255,255, .3);
+}
+
+    .cli > * {
+        padding: 1em;
+    }
+
+.headerOne {
+    text-align: center;
+    font-size: 3em;
+    color: darkred;
+}
+
+.tipCli {
+    text-align: center;
+    font-size: 22px;
+}
+
+.select {
+    width: 100%;
+    border: none;
+    background: none;
+    border-bottom: 1px solid #d63031;
+    color: #686868;
+}
+
+
+.contact {
+    box-shadow: 0 0 20px 0 rgba(255,255,255, .3);
+}
+
+.bodyForm {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    font-size: 18px;
+}
+
+    .bodyForm p {
+        margin: 0;
+        padding: 1em;
+    }
+
+.textBox {
+    width: 80%;
+    border: none;
+    background: none;
+    border-bottom: 1px solid #2B67D1;
+    color: white;
+}
+
+    .textBox:hover, .textBox:focus {
+        background: #272727;
+        color: white;
+        transition: 1s ease-out;
+        outline: 0;
+    }
+
+.contactform {
+    background: #222222;
+}
+
+    .contactform form p {
+        margin: 0;
+        padding: 1em;
+    }
+
+.boton {
+    grid-column: 1/3;
+   
+   
+}
+.btn {
+    width: 100%;
+    background: #d63031;
+    border: 0;
+    text-transform: uppercase;
+    padding: 1em;
+    color:black;
+}
+.btn:hover, .btn:focus {
+    background: #d63031;
+    color: white;
+    transition: 1s ease-out;
+    outline: 0;
+}
+
+.formulario {
+    box-shadow: 0 0 20px 0 rgba(255,255,255, .3);
+}
+.indice{
+    display:grid;
+   grid-template-columns:1fr 1fr;
+   font-size:18px;
+   
+   text-decoration:none;
+}
+.next {
+    text-align: end;
+    color:white;
+}
